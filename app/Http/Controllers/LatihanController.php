@@ -12,7 +12,7 @@ class LatihanController extends Controller
     <style>
         .table-container {
             display: flex;
-            justify-content: center; /* rata tengah horizontal */
+            justify-content: center; 
             margin-top: 20px;
             width: 100%;
         }
