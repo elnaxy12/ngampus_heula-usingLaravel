@@ -34,11 +34,9 @@ class LatihanController extends Controller
     ";
     }
 
-
-
-public function getForm()
-{
-    return "
+    public function getForm()
+    {
+        return "
         <form method='post' action='#' style='width: 300px; margin: 0 auto; border: 1px solid black; padding: 10px;'>
             <label for='nim'>NIM:</label><br>
             <input type='text' id='nim' name='nim' style='width: 100%; margin-bottom: 10px;'><br>
@@ -54,5 +52,5 @@ public function getForm()
             </button>
         </form>
     ";
-}
+    }
 }
