@@ -67,23 +67,23 @@ class LatihanController extends Controller
     public function getForm()
     {
         return "
-
+        
         <style>
-        body {
-            max-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        input[type=number] {
-             -moz-appearance: textfield;
-        }
-        input[type=number]::-webkit-inner-spin-button,
-        input[type=number]::-webkit-outer-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-            </style>
+            body {
+                max-height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            input[type=number] {
+                -moz-appearance: textfield;
+            }
+            input[type=number]::-webkit-inner-spin-button,
+            input[type=number]::-webkit-outer-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+         </style>
 
         <form method='post' action='#' style='width: 300px; margin: 0 auto; border: 1px solid black; padding: 10px;'>
             <label for='nim'>NIM:</label><br>
