@@ -37,9 +37,10 @@ class LatihanController extends Controller
             background-color: #fafafa;
         }
     </style>
-
-    <div class='table-container'>
-        <table>
+    
+    <div class='table-container' style='text-align: center;'>
+        <table border='1' cellpadding='8' cellspacing='0' style='margin: 0 auto; border-collapse: collapse; width: 600px;'>
+            <caption style='text-align: start;'><h1>Data Mahasiswa</h1></caption>
             <tr>
                 <th>No</th>
                 <th>NIM</th>
@@ -74,11 +75,19 @@ class LatihanController extends Controller
             justify-content: center;
             align-items: center;
         }
-        </style>
+        input[type=number] {
+             -moz-appearance: textfield;
+        }
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+            </style>
 
         <form method='post' action='#' style='width: 300px; margin: 0 auto; border: 1px solid black; padding: 10px;'>
             <label for='nim'>NIM:</label><br>
-            <input type='text' id='nim' name='nim' style='width: 100%; margin-bottom: 10px;'><br>
+            <input type='number' id='nim' name='nim' style='width: 100%; margin-bottom: 10px;'><br>
 
             <label for='nama'>Nama Lengkap:</label><br>
             <input type='text' id='nama' name='nama' style='width: 100%; margin-bottom: 10px;'><br>
