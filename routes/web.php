@@ -9,8 +9,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('helloworld', [HelloWorldController::class, 'index']);
-Route::get('ambilfile', [HelloWorldController::class, 'ambilFile']);
-Route::get('getlorem', [HtmlController::class, 'getLorem']);
+Route::get('/helloworld', [HelloWorldController::class, 'index']);
+Route::get('/ambilfile', [HelloWorldController::class, 'ambilFile']);
+Route::get('/getlorem', [HtmlController::class, 'getLorem']);
 Route::get('/table', [LatihanController::class, 'getTable']);
 Route::get('/form', [LatihanController::class, 'getForm']);

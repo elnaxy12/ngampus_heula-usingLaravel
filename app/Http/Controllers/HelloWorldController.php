@@ -13,6 +13,6 @@ class HelloWorldController extends Controller
 
     public function ambilFile()
     {
-        return "Hello World";
+        return view("ambilFile");
     }
 }
