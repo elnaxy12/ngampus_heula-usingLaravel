@@ -2,22 +2,31 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
+use App\Models\Mahasiswa; 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
+        Mahasiswa::create([
+            'nim' => '230001',
+            'nama' => 'Sopian Aji',
+            'alamat' => 'Jl. Melati No. 1, Jakarta',
+            'tanggal_lahir' => '2000-04-12',
+        ]);
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        Mahasiswa::create([
+            'nim' => '230002',
+            'nama' => 'Husni Faqih',
+            'alamat' => 'Jl. Mawar No. 5, Bandung',
+            'tanggal_lahir' => '1999-11-23',
+        ]);
+
+        Mahasiswa::create([
+            'nim' => '230003',
+            'nama' => 'Rousyati',
+            'alamat' => 'Jl. Kenanga No. 9, Surabaya',
+            'tanggal_lahir' => '2001-02-17',
         ]);
     }
 }
