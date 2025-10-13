@@ -3,30 +3,23 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Mahasiswa; 
+use App\Models\Anggota;
+
 class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        Mahasiswa::create([
-            'nim' => '230001',
-            'nama' => 'Sopian Aji',
-            'alamat' => 'Jl. Melati No. 1, Jakarta',
-            'tanggal_lahir' => '2000-04-12',
+        Anggota::create([
+        'nama' => 'Sopian Aji',
+        'hp' => '085123456781',
         ]);
-
-        Mahasiswa::create([
-            'nim' => '230002',
-            'nama' => 'Husni Faqih',
-            'alamat' => 'Jl. Mawar No. 5, Bandung',
-            'tanggal_lahir' => '1999-11-23',
+        Anggota::create([
+        'nama' => 'Husni Faqih',
+        'hp' => '085123456782',
         ]);
-
-        Mahasiswa::create([
-            'nim' => '230003',
-            'nama' => 'Rousyati',
-            'alamat' => 'Jl. Kenanga No. 9, Surabaya',
-            'tanggal_lahir' => '2001-02-17',
+        Anggota::create([
+        'nama' => 'Rousyati',
+        'hp' => '085123456783',
         ]);
     }
 }

@@ -7,18 +7,17 @@ use Illuminate\Support\Facades\Schema;
 return new class () extends Migration {
     public function up(): void
     {
-        Schema::create('mahasiswa', function (Blueprint $table) {
+        Schema::create('anggota', function (Blueprint $table) {
             $table->id();
-            $table->string('nim')->unique();
             $table->string('nama');
-            $table->text('alamat');
-            $table->date('tanggal_lahir');
+            $table->string('hp', 13);
             $table->timestamps();
         });
+
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('mahasiswa');
+        Schema::dropIfExists('anggota');
     }
 };

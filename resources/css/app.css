@@ -1,11 +1,65 @@
-@import 'tailwindcss';
+body {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+.main-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+}
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+.align-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.align-center .col-2 {
+    width: 100%;
+    position: relative;
+}
+
+.align-center .col-2 button {
+    position: absolute;
+    left: 15pc;
+    top: -24px;
+}
+
+.align-center .col-3 {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.align-center .col-3 table tbody tr td.text-center {
+    text-align: center;
+}
+
+.align-center .col-3 table tbody tr td.evenly-space {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.align-center .col-3 table tbody tr td button {
+    margin: 5px;
+}
+
+button {
+    cursor: pointer;
+}
+
+.card {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    width: 250px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+h3 {
+    text-align: center;
 }
