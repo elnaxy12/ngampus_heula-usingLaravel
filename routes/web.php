@@ -30,10 +30,13 @@ Route::get('backend/beranda', [BerandaController::class, 'berandaBackend'])
     ->name('backend.beranda')
     ->middleware('auth');
 
+
 Route::get('backend/login', [LoginController::class, 'loginBackend'])
     ->name('backend.login');
+
 Route::post('backend/login', [LoginController::class, 'authenticateBackend'])
-    ->name('backend.login');
+    ->name('backend.login.post');
+
 Route::post('backend/logout', [LoginController::class, 'logoutBackend'])
     ->name('backend.logout');
 

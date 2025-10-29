@@ -2,21 +2,23 @@
 
 @section('content')
     <!-- contentAwal -->
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <form class="form-horizontal" action="{{ route('backend.user.store') }}" method="POST"
+                    <form class="form-horizontal" action="{{ route('backend.user.store') }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
+
                         <div class="card-body">
                             <h4 class="card-title">{{ $judul }}</h4>
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Foto</label><br>
-                                        <img id="foto-preview" class="img-thumbnail mb-2" width="150"
-                                            style="display: none;">
+                                        <label>Foto</label>
+                                        <img class="foto-preview mb-2 rounded" width="100" height="100"
+                                            style="object-fit: cover; display: none;">
                                         <input type="file" name="foto"
                                             class="form-control @error('foto') is-invalid @enderror"
                                             onchange="previewFoto(event)">
@@ -25,18 +27,19 @@
                                         @enderror
                                     </div>
                                 </div>
-
                                 <div class="col-md-8">
                                     <div class="form-group">
                                         <label>Hak Akses</label>
                                         <select name="role" class="form-control @error('role') is-invalid @enderror">
-                                            <option value="">- Pilih Hak Akses -</option>
+                                            <option value="" {{ old('role') == '' ? 'selected' : '' }}>- Pilih Hak
+                                                Akses -</option>
                                             <option value="1" {{ old('role') == '1' ? 'selected' : '' }}>Super Admin
                                             </option>
                                             <option value="0" {{ old('role') == '0' ? 'selected' : '' }}>Admin</option>
                                         </select>
                                         @error('role')
-                                            <span class="invalid-feedback alert-danger">{{ $message }}</span>
+                                            <span class="invalid-feedback alert-danger"
+                                                role="alert">{{ $message }}</span>
                                         @enderror
                                     </div>
 
@@ -46,7 +49,8 @@
                                             class="form-control @error('nama') is-invalid @enderror"
                                             placeholder="Masukkan Nama">
                                         @error('nama')
-                                            <span class="invalid-feedback alert-danger">{{ $message }}</span>
+                                            <span class="invalid-feedback alert-danger"
+                                                role="alert">{{ $message }}</span>
                                         @enderror
                                     </div>
 
@@ -56,18 +60,20 @@
                                             class="form-control @error('email') is-invalid @enderror"
                                             placeholder="Masukkan Email">
                                         @error('email')
-                                            <span class="invalid-feedback alert-danger">{{ $message }}</span>
+                                            <span class="invalid-feedback alert-danger"
+                                                role="alert">{{ $message }}</span>
                                         @enderror
                                     </div>
 
                                     <div class="form-group">
                                         <label>HP</label>
-                                        <input type="text" name="hp" value="{{ old('hp') }}"
-                                            onkeypress="return hanyaAngka(event)"
+                                        <input type="text" onkeypress="return hanyaAngka(event)" name="hp"
+                                            value="{{ old('hp') }}"
                                             class="form-control @error('hp') is-invalid @enderror"
                                             placeholder="Masukkan Nomor HP">
                                         @error('hp')
-                                            <span class="invalid-feedback alert-danger">{{ $message }}</span>
+                                            <span class="invalid-feedback alert-danger"
+                                                role="alert">{{ $message }}</span>
                                         @enderror
                                     </div>
 
@@ -77,7 +83,8 @@
                                             class="form-control @error('password') is-invalid @enderror"
                                             placeholder="Masukkan Password">
                                         @error('password')
-                                            <span class="invalid-feedback alert-danger">{{ $message }}</span>
+                                            <span class="invalid-feedback alert-danger"
+                                                role="alert">{{ $message }}</span>
                                         @enderror
                                     </div>
 
@@ -92,8 +99,9 @@
 
                         <div class="border-top">
                             <div class="card-body">
-                                {{-- Tombol Simpan HARUS type="submit" agar form terkirim --}}
+                                <!-- Ganti type="button" jadi type="submit" agar bisa dikirim -->
                                 <button type="submit" class="btn btn-primary">Simpan</button>
+
                                 <a href="{{ route('backend.user.index') }}" class="btn btn-secondary">Kembali</a>
                             </div>
                         </div>
@@ -104,23 +112,25 @@
     </div>
 
     <!-- contentAkhir -->
+@endsection
 
-    {{-- Script Preview Foto --}}
+@push('scripts')
     <script>
         function previewFoto(event) {
-            const foto = event.target.files[0];
-            const preview = document.getElementById('foto-preview');
-
-            if (foto) {
+            const input = event.target;
+            const preview = document.querySelector('.foto-preview');
+            const file = input.files[0];
+            if (file) {
                 preview.style.display = 'block';
-                preview.src = URL.createObjectURL(foto);
+                preview.src = URL.createObjectURL(file);
             }
         }
 
         function hanyaAngka(evt) {
-            var charCode = evt.which ? evt.which : event.keyCode;
-            if (charCode > 31 && (charCode < 48 || charCode > 57)) return false;
+            const charCode = evt.which ? evt.which : event.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
             return true;
         }
     </script>
-@endsection
+@endpush

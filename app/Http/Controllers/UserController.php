@@ -28,7 +28,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+
+        return view('backend.v_user.create', [
+        'judul' => 'Tambah User',
+        ]);
+
     }
 
     /**
@@ -67,7 +71,7 @@ class UserController extends Controller
         // huruf kecil ([a-z]), huruf besar ([A-Z]), dan angka (\d) (?=.*[\W_]) simbol karakter (non-alphanumeric)
         if (preg_match($pattern, $password)) {
             $validatedData['password'] = Hash::make($validatedData['password']);
-            User::create($validatedData, $messages);
+            User::create($validatedData);
             return redirect()->route('backend.user.index')->with('success', 'Data berhasil tersimpan');
         } else {
             return redirect()->back()->withErrors(['password' => 'Password harus terdiri dari kombinasi huruf besar, huruf kecil, angka, dan simbol karakter.']);
