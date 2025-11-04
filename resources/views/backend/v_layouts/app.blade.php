@@ -88,8 +88,8 @@
 
                     <ul class="navbar-nav float-right">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic"
-                                href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href=""
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 @if (Auth::user()->foto)
                                     <img src="{{ asset('storage/img-user/' . Auth::user()->foto) }}" alt="user"
                                         class="rounded-circle" width="31">
@@ -235,7 +235,7 @@
     <script src="{{ asset('backend/matrix-admin-master/assets/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script
         src="{{ asset('backend/matrix-admin-master/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js') }}">
-    </script>
+        </script>
     <script src="{{ asset('backend/matrix-admin-master/assets/extra-libs/sparkline/sparkline.js') }}"></script>
     <script src="{{ asset('backend/matrix-admin-master/dist/js/waves.js') }}"></script>
     <script src="{{ asset('backend/matrix-admin-master/dist/js/sidebarmenu.js') }}"></script>
@@ -272,7 +272,7 @@
     <!-- konfirmasi success End-->
     <script type="text/javascript">
         //Konfirmasi delete 
-        $('.show_confirm').click(function(event) {
+        $('.show_confirm').click(function (event) {
             var form = $(this).closest("form");
             var konfdelete = $(this).data("konf-delete");
             event.preventDefault();
