@@ -142,7 +142,7 @@
                             </a>
                             <ul aria-expanded="false" class="collapse first-level">
                                 <li class="sidebar-item">
-                                    <a href="icon-material.html" class="sidebar-link">
+                                    <a href="{{ route('backend.kategori.index') }}" class="sidebar-link">
                                         <i class="mdi mdi-chevron-right"></i>
                                         <span class="hide-menu">Kategori</span>
                                     </a>

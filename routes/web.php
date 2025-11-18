@@ -7,10 +7,11 @@ use App\Http\Controllers\HtmlController;
 use App\Http\Controllers\LatihanController;
 use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\BerandaController;
-use App\Http\Controllers\LoginController; 
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Anggota;
+use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\UserController;
-
+use Symfony\Component\Routing\Route as RoutingRoute;
 
 Route::get('/', function () {
     return view('welcome');
@@ -42,4 +43,6 @@ Route::post('backend/logout', [LoginController::class, 'logoutBackend'])
 
 
 Route::resource('backend/user', UserController::class, ['as' => 'backend'])
-->middleware('auth'); 
+->middleware('auth');
+
+Route::resource('backend/kategori', KategoriController::class, ['as' => 'backend'])->middleware('auth');
