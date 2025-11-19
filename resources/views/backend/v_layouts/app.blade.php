@@ -155,6 +155,27 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
+                                aria-expanded="false">
+                                <i class="mdi mdi-receipt"></i>
+                                <span class="hide-menu">Laporan</span>
+                            </a>
+                            <ul aria-expanded="false" class="collapse  first-level">
+                                <li class="sidebar-item">
+                                    <a href="{{ route('backend.laporan.formuser') }}" class="sidebar-link">
+                                        <i class="mdi mdi-chevron-right"></i>
+                                        <span class="hide-menu"> User</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="{{ route('backend.laporan.formproduk') }}" class="sidebar-link">
+                                        <i class="mdi mdi-chevron-right"></i>
+                                        <span class="hide-menu"> Produk</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -302,7 +323,7 @@
             fotoPreview.style.display = 'block';
             const fotoReader = new FileReader();
             fotoReader.readAsDataURL(foto.files[0]);
-            fotoReader.onload = function(fotoEvent) {
+            fotoReader.onload = function (fotoEvent) {
                 fotoPreview.src = fotoEvent.target.result;
                 fotoPreview.style.width = '100%';
             }
