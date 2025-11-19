@@ -10,6 +10,7 @@ use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Anggota;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\UserController;
 use Symfony\Component\Routing\Route as RoutingRoute;
 
@@ -46,3 +47,13 @@ Route::resource('backend/user', UserController::class, ['as' => 'backend'])
 ->middleware('auth');
 
 Route::resource('backend/kategori', KategoriController::class, ['as' => 'backend'])->middleware('auth');
+
+Route::resource('backend/produk', ProdukController::class, ['as' => 'backend'])->middleware('auth');
+
+Route::post('foto_produk/store', [
+    ProdukController::class, 'storeFoto'
+])->name('backend.foto_produk.store')->middleware('auth');
+
+Route::delete('foto-produk/{id}', [
+    ProdukController::class, 'destroyFoto'
+])->name('backend.foto_produk.destroy')->middleware('auth');

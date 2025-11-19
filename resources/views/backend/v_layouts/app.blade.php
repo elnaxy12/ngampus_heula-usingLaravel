@@ -148,7 +148,7 @@
                                     </a>
                                 </li>
                                 <li class="sidebar-item">
-                                    <a href="icon-fontawesome.html" class="sidebar-link">
+                                    <a href="{{ route('backend.produk.index') }}" class="sidebar-link">
                                         <i class="mdi mdi-chevron-right"></i>
                                         <span class="hide-menu">Produk</span>
                                     </a>
@@ -294,6 +294,29 @@
                 }
             });
         });
+    </script>
+    <script>
+        function previewFoto() {
+            const foto = document.querySelector('input[name="foto"]');
+            const fotoPreview = document.querySelector('.foto-preview');
+            fotoPreview.style.display = 'block';
+            const fotoReader = new FileReader();
+            fotoReader.readAsDataURL(foto.files[0]);
+            fotoReader.onload = function(fotoEvent) {
+                fotoPreview.src = fotoEvent.target.result;
+                fotoPreview.style.width = '100%';
+            }
+        }
+    </script>
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+    <!-- <script 
+    src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script> -->
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#ckeditor'))
+            .catch(error => {
+                console.error(error);
+            }); 
     </script>
 </body>
 
