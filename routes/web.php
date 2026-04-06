@@ -15,7 +15,9 @@ use App\Http\Controllers\UserController;
 use Symfony\Component\Routing\Route as RoutingRoute;
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    // return redirect()->route('backend.login');
+    return redirect()->route('beranda');
 });
 
 
