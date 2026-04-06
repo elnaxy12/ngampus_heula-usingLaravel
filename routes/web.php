@@ -73,3 +73,5 @@ Route::get('backend/laporan/formproduk', [
 Route::post('backend/laporan/cetakproduk', [
     ProdukController::class, 'cetakProduk' 
 ])->name('backend.laporan.cetakproduk')->middleware('auth');
+
+Route::get('/beranda', [BerandaController::class, 'index'])->name('beranda');
