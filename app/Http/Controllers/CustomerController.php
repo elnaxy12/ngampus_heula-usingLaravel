@@ -14,8 +14,8 @@ class CustomerController extends Controller
     // Redirect ke Google
     public function redirect()
     {
-        
-return Socialite::driver('google')->redirect();
+
+        return Socialite::driver('google')->redirect();
 
     }
     // Callback dari Google
