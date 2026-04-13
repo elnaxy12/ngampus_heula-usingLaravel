@@ -4,6 +4,7 @@
     <!-- STORE -->
     <div id="store">
         <div class="row">
+
             @foreach ($produk as $index => $row)
                 <!-- Product Single -->
                 <div class="col-md-4 col-sm-6 col-xs-6">
@@ -15,7 +16,7 @@
                                 <span class="sale">{{ $row->kategori->nama_kategori }}</span>
                             </div>
 
-                            <a href="{{ route('produk.detail', $row->id) }}" title="Detail Produk">
+                            <a href="{{ route('produk.detail', $row->id) }}">
                                 <button class="main-btn quick-view">
                                     <i class="fa fa-search-plus"></i> Detail Produk
                                 </button>
@@ -31,7 +32,7 @@
                             </h3>
 
                             <h2 class="product-name">
-                                <a href="#">{{ $row->nama_produk }}</a>
+                                <a href="{{ route('produk.detail', $row->id) }}">{{ $row->nama_produk }}</a>
                             </h2>
 
                             <div class="product-btns">
@@ -41,7 +42,7 @@
                                     </button>
                                 </a>
 
-                                <form action="3" method="post" style="display: inline-block;" title="Pesan Ke Aplikasi">
+                                <form action="#" method="post" style="display: inline-block;" title="Pesan Ke Aplikasi">
                                     @csrf
                                     <button type="submit" class="primary-btn add-to-cart">
                                         <i class="fa fa-shopping-cart"></i> Pesan
@@ -52,6 +53,7 @@
 
                     </div>
                 </div>
+                <!-- /Product Single -->
 
                 @if (($index + 1) % 3 == 0)
                     <div class="clearfix visible-md visible-lg"></div>
@@ -59,7 +61,6 @@
                 @if (($index + 1) % 2 == 0)
                     <div class="clearfix visible-sm visible-xs"></div>
                 @endif
-                <!-- /Product Single -->
             @endforeach
 
             <div class="clearfix visible-md visible-lg visible-sm visible-xs"></div>

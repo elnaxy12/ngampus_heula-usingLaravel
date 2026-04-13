@@ -73,7 +73,10 @@ Route::get('backend/laporan/formproduk', [
 ])->name('backend.laporan.formproduk')->middleware('auth');
 
 Route::post('backend/laporan/cetakproduk', [
-    ProdukController::class, 'cetakProduk' 
+    ProdukController::class, 'cetakProduk'
 ])->name('backend.laporan.cetakproduk')->middleware('auth');
 
 Route::get('/beranda', [BerandaController::class, 'index'])->name('beranda');
+Route::get('/produk/detail/{id}', [ProdukController::class, 'detail'])->name('produk.detail');
+Route::get('/produk/kategori/{id}', [ProdukController::class, 'produkKategori'])->name('produk.kategori');
+Route::get('/produk/all', [ProdukController::class, 'produkAll'])->name('produk.all'); 

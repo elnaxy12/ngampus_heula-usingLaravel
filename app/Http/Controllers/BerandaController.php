@@ -16,7 +16,7 @@ class BerandaController extends Controller
 
     public function index()
     {
-        $produk = Produk::where('status', 1)-> orderBy('update_at', 'desc')-> paginate(6);
+        $produk = Produk::with('kategori')->where('status', 1)->orderBy('updated_at', 'desc')->paginate(6);
 
         return view('v_beranda.index', [
             'judul' => 'Halaman Beranda',

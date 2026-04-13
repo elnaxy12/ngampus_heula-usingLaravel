@@ -88,6 +88,34 @@ class ProdukController extends Controller
     }
 
     /**
+     * Display the kategori product.
+     */
+    public function produkKategori($id)
+    {
+        $kategori = Kategori::orderBy('nama_kategori', 'desc')->get();
+        $produk = Produk::where('kategori_id', $id)->where('status', 1)-> orderBy('updated_at', 'desc')->paginate(6);
+        return view('v_produk.produkkategori', [
+            'judul' => 'Filter Kategori',
+            'kategori' => $kategori,
+            'produk' => $produk,
+        ]);
+    }
+    
+    /**
+     * Display the all kategori product.
+     */
+    public function produkAll() 
+    { 
+        $kategori = Kategori::orderBy('nama_kategori', 'desc')->get(); 
+        $produk = Produk::where('status', 1)->orderBy('updated_at', 'desc')->paginate(6); 
+        return view('v_produk.index', [ 
+            'judul' => 'Semua Produk', 
+            'kategori' => $kategori, 
+            'produk' => $produk, 
+        ]); 
+    } 
+
+    /**
      * Display the specified resource.
      */
     public function show(string $id)
@@ -99,6 +127,22 @@ class ProdukController extends Controller
             'judul' => 'Detail Produk',
             'show' => $produk,
             'kategori' => $kategori
+        ]);
+    }
+
+    /**
+     * Display the detailed resource.
+     */
+    public function detail($id)
+    {
+        $fotoProdukTambahan = FotoProduk::where('produk_id', $id)->get();
+        $detail = Produk::findOrFail($id);
+        $kategori = Kategori::orderBy('nama_kategori', 'desc')->get();
+        return view('v_produk.detail', [
+            'judul' => 'Detail Produk',
+            'kategori' => $kategori,
+            'row' => $detail,
+            'fotoProdukTambahan' => $fotoProdukTambahan
         ]);
     }
 
@@ -277,38 +321,38 @@ class ProdukController extends Controller
         }
     }
 
-           // Method untuk Form Laporan Produk 
-    public function formProduk() 
-    { 
-        return view('backend.v_produk.form', [ 
-            'judul' => 'Laporan Data Produk', 
-        ]); 
-    } 
- 
-    // Method untuk Cetak Laporan Produk 
-    public function cetakProduk(Request $request) 
-    { 
-        // Menambahkan aturan validasi 
-        $request->validate([ 
-            'tanggal_awal' => 'required|date', 
-            'tanggal_akhir' => 'required|date|after_or_equal:tanggal_awal', 
-        ], [ 
-            'tanggal_awal.required' => 'Tanggal Awal harus diisi.', 
-            'tanggal_akhir.required' => 'Tanggal Akhir harus diisi.', 
-            'tanggal_akhir.after_or_equal' => 'Tanggal Akhir harus lebih besar atau sama dengan Tanggal Awal.', 
-        ]); 
- 
-        $tanggalAwal = $request->input('tanggal_awal'); 
-        $tanggalAkhir = $request->input('tanggal_akhir'); 
-          $query =  Produk::whereBetween('updated_at', [$tanggalAwal, $tanggalAkhir]) 
-            ->orderBy('id', 'desc'); 
- 
-        $produk = $query->get(); 
-        return view('backend.v_produk.cetak', [ 
-            'judul' => 'Laporan Produk', 
-            'tanggalAwal' => $tanggalAwal, 
-            'tanggalAkhir' => $tanggalAkhir, 
-            'cetak' => $produk 
-        ]); 
+    // Method untuk Form Laporan Produk
+    public function formProduk()
+    {
+        return view('backend.v_produk.form', [
+            'judul' => 'Laporan Data Produk',
+        ]);
+    }
+
+    // Method untuk Cetak Laporan Produk
+    public function cetakProduk(Request $request)
+    {
+        // Menambahkan aturan validasi
+        $request->validate([
+            'tanggal_awal' => 'required|date',
+            'tanggal_akhir' => 'required|date|after_or_equal:tanggal_awal',
+        ], [
+            'tanggal_awal.required' => 'Tanggal Awal harus diisi.',
+            'tanggal_akhir.required' => 'Tanggal Akhir harus diisi.',
+            'tanggal_akhir.after_or_equal' => 'Tanggal Akhir harus lebih besar atau sama dengan Tanggal Awal.',
+        ]);
+
+        $tanggalAwal = $request->input('tanggal_awal');
+        $tanggalAkhir = $request->input('tanggal_akhir');
+        $query =  Produk::whereBetween('updated_at', [$tanggalAwal, $tanggalAkhir])
+          ->orderBy('id', 'desc');
+
+        $produk = $query->get();
+        return view('backend.v_produk.cetak', [
+            'judul' => 'Laporan Produk',
+            'tanggalAwal' => $tanggalAwal,
+            'tanggalAkhir' => $tanggalAkhir,
+            'cetak' => $produk
+        ]);
     }
 }
