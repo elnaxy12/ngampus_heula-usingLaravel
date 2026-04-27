@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\HelloWorldController;
 use App\Http\Controllers\HtmlController;
 use App\Http\Controllers\LatihanController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\RajaOngkirController;
 
 /*
 |--------------------------------------------------------------------------
@@ -94,3 +96,22 @@ Route::get('/ambilfile', [HelloWorldController::class, 'ambilFile']);
 Route::get('/getlorem', [HtmlController::class, 'getLorem']);
 Route::get('/table', [LatihanController::class, 'getTable']);
 Route::get('/form', [LatihanController::class, 'getForm']);
+
+
+Route::get('/list-ongkir', function () {
+
+    $response = Http::withHeaders([
+        'key' => 'fJwZzzEm63af471ed7bf2ce6R2fttDNf'
+    ])->get('https://rajaongkir.komerce.id/api/v1/destination/province');
+
+    return $response->json();
+});
+
+
+Route::get('/cek-ongkir', function () {
+    return view('ongkir');
+});
+
+Route::get('/provinces', [RajaOngkirController::class, 'getProvinces']);
+Route::get('/cities', [RajaOngkirController::class, 'getCities']);
+Route::post('/cost', [RajaOngkirController::class, 'getCost']);
