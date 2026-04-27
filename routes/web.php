@@ -89,3 +89,10 @@ Route::get('/auth/redirect', [CustomerController::class, 'redirect'])->name('aut
 Route::get('/auth/google/callback', [CustomerController::class, 'callback'])->name('auth.callback');
 // Logout
 Route::post('/logout', [CustomerController::class, 'logout'])->name('logout');
+
+Route::middleware('is.customer')->group(function () {
+    // Route untuk menampilkan halaman akun customer
+    Route::get('/customer/akun/{id}', [CustomerController::class, 'akun']) ->name('customer.akun');
+    // Route untuk mengupdate data akun customer
+    Route::put('/customer/updateakun/{id}', [CustomerController::class, 'updateAkun']) ->name('customer.updateakun');
+});
