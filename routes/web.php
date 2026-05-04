@@ -47,8 +47,21 @@ Route::post('/logout', [CustomerController::class, 'logout'])->name('logout');
 Route::middleware('is.customer')->group(function () {
     Route::get('/customer/akun/{id}', [CustomerController::class, 'akun'])->name('customer.akun');
     Route::put('/customer/updateakun/{id}', [CustomerController::class, 'updateAkun'])->name('customer.updateakun');
+
+    // Cart & Order
     Route::post('add-to-cart/{id}', [OrderController::class, 'addToCart'])->name('order.addToCart');
     Route::get('cart', [OrderController::class, 'viewCart'])->name('order.cart');
+    Route::post('cart/update/{id}', [OrderController::class, 'updateCart'])->name('order.updateCart');
+    Route::post('remove/{id}', [OrderController::class, 'removeFromCart'])->name('order.remove');
+
+    // Ongkir
+    Route::post('select-shipping', [OrderController::class, 'selectShipping'])->name('order.selectShipping');
+    Route::get('provinces', [OrderController::class, 'getProvinces']);
+    Route::get('cities', [OrderController::class, 'getCities']);
+    Route::post('cost', [OrderController::class, 'getCost']);
+    Route::post('update-ongkir', [OrderController::class, 'updateongkir'])->name('order.update-ongkir');
+    Route::get('select-payment', [OrderController::class, 'selectPayment'])->name('order.selectpayment');
+
 });
 
 /*

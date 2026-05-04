@@ -36,13 +36,15 @@ class RajaOngkirController extends Controller
     public function getCost(Request $request)
     {
         $response = Http::withHeaders(['key' => $this->apiKey()])
-            ->post($this->baseUrl() . 'calculate/domestic-cost', [
+            ->asForm()  // ✅ form-urlencoded
+            ->post($this->baseUrl() . 'calculate/district/domestic-cost', [
                 'origin'      => $request->input('origin'),
                 'destination' => $request->input('destination'),
                 'weight'      => $request->input('weight'),
                 'courier'     => $request->input('courier'),
+                'price'       => 'lowest',
             ]);
 
-        return response()->json($response->json());
+            return response()->json($response->json());
     }
 }

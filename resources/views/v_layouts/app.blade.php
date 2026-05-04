@@ -35,7 +35,7 @@
 		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body>
@@ -92,7 +92,8 @@
                                             class="fa fa-caret-down"></i></strong>
                                 </div>
                                 <ul class="custom-menu">
-                                    <li><a href="{{ route('customer.akun', ['id' => Auth::user()->id]) }}"><i class="fa fa-user-o"></i> Akun Saya</a></li>
+                                    <li><a href="{{ route('customer.akun', ['id' => Auth::user()->id]) }}"><i
+                                                class="fa fa-user-o"></i> Akun Saya</a></li>
                                     <li><a href="#"><i class="fa fa-check"></i> History</a></li>
                                     <li>
                                         <a href="#"
@@ -100,8 +101,7 @@
                                                 class="fa fa-power-off"></i> Keluar
                                         </a>
                                         <!-- form keluar app -->
-                                        <form id="keluar-app" action="{{ route('logout') }}" method="POST"
-                                            class="d-none">
+                                        <form id="keluar-app" action="{{ route('logout') }}" method="POST" class="d-none">
                                             @csrf
                                         </form>
                                         <!-- form keluar app end -->
@@ -339,7 +339,7 @@
                         <!-- footer logo -->
                         <div class="footer-logo">
                             <a class="logo" href="#">
-                                <img src="./img/logo.png" alt="">
+                                <img src="{{ asset('frontend/img/logo.png') }}" alt="">
                             </a>
                         </div>
                         <!-- /footer logo -->
