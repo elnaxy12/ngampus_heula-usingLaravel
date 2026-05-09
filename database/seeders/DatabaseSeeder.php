@@ -4,7 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
-use App\Models\Kategori; 
+use App\Models\Kategori;
+use Database\Seeders\ProdukSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,6 +19,7 @@ class DatabaseSeeder extends Seeder
             'hp' => '0812345678901',
             'password' => bcrypt('P@55word'),
         ]);
+
         User::create([
             'nama' => 'Sopian Aji',
             'email' => 'sopian4ji@gmail.com',
@@ -26,21 +28,31 @@ class DatabaseSeeder extends Seeder
             'hp' => '081234567892',
             'password' => bcrypt('P@55word'),
         ]);
-        // data kategori
+
+        // Data kategori
         Kategori::create([
             'nama_kategori' => 'Brownies',
         ]);
+
         Kategori::create([
             'nama_kategori' => 'Combro',
         ]);
+
         Kategori::create([
             'nama_kategori' => 'Dawet',
         ]);
+
         Kategori::create([
             'nama_kategori' => 'Mochi',
         ]);
+
         Kategori::create([
             'nama_kategori' => 'Wingko',
+        ]);
+
+        // Jalankan seeder produk
+        $this->call([
+            ProdukSeeder::class,
         ]);
     }
 }

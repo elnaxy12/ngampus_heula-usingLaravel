@@ -11,6 +11,12 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function ($middleware) {
+        $middleware->validateCsrfTokens(except: [
+            'midtrans/callback',
+        ]);
+
+        $middleware->trustProxies(at: '*');
+
         $middleware->alias([
             'is.customer' => \App\Http\Middleware\IsCustomer::class,
         ]);

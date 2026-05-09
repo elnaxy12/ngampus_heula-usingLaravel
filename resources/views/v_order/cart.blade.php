@@ -1,4 +1,6 @@
 @extends('v_layouts.app')
+
+@section('title', 'Keranjang Belanja')
 @section('content')
 
     <div class="col-md-12">

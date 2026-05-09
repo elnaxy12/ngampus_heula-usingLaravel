@@ -73,8 +73,8 @@ Route::middleware('is.customer')->group(function () {
     Route::get('order/invoice/{id}', [OrderController::class, 'invoiceFrontend'])->name('order.invoice');
 
     // Midtrans Callback
-    Route::post('midtrans/callback', [OrderController::class, 'callback'])->name('order.callback');
 });
+Route::post('midtrans/callback', [OrderController::class, 'callback'])->name('order.callback');
 
 /*
 |--------------------------------------------------------------------------
@@ -85,6 +85,9 @@ Route::middleware('is.customer')->group(function () {
 Route::get('backend/login', [LoginController::class, 'loginBackend'])->name('backend.login');
 Route::post('backend/login', [LoginController::class, 'authenticateBackend'])->name('backend.login.post');
 Route::post('backend/logout', [LoginController::class, 'logoutBackend'])->name('backend.logout');
+Route::get('/login', function () {
+    return redirect()->route('backend.login');
+})->name('login');
 
 /*
 |--------------------------------------------------------------------------

@@ -1,4 +1,6 @@
 @extends('v_layouts.app')
+
+@section('title', 'History Pesanan')
 @section('content')
 <!-- template -->
 

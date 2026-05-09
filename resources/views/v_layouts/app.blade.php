@@ -8,7 +8,6 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('image/icon_univ_bsi.png') }}">
-    <title>tokoonline</title>
 
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
@@ -36,6 +35,8 @@
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @stack('styles')
+    <title>@yield('title', 'Halamana Beranda')</title>
 </head>
 
 <body>
@@ -70,8 +71,8 @@
                 <div class="pull-right">
                     <ul class="header-btns">
                         <!-- Cart -->
-                        <li class="header-cart dropdown default-dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                        <li class="header-cart">
+                            <a href="{{ route('order.cart') }}">
                                 <div class="header-btns-icon">
                                     <i class="fa fa-shopping-cart"></i>
                                 </div>
@@ -94,7 +95,7 @@
                                 <ul class="custom-menu">
                                     <li><a href="{{ route('customer.akun', ['id' => Auth::user()->id]) }}"><i
                                                 class="fa fa-user-o"></i> Akun Saya</a></li>
-                                    <li><a href="#"><i class="fa fa-check"></i> History</a></li>
+                                    <li><a href="{{ route('order.history') }}"><i class="fa fa-check"></i> History</a></li>
                                     <li>
                                         <a href="#"
                                             onclick="event.preventDefault(); document.getElementById('keluar-app').submit();"><i

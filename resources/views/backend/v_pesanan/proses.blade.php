@@ -10,6 +10,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>ID Order</th>
+                                <th>User ID</th>
                                 <th>Tanggal</th>
                                 <th>Total</th>
                                 <th>Status</th>
@@ -17,29 +18,40 @@
                                 <th>Aksi</th>
                             </tr>
                         </thead>
+
                         <tbody>
                             @foreach ($index as $row)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $row->id }}</td>
+                                    <td>{{ $row->id }} - {{ $row->user_id }}</td>
+                                    <td>{{ $row->user_id ?? 'NULL' }}</td>
                                     <td>{{ $row->created_at->format('d M Y H:i') }}</td>
-                                    <td>Rp. {{ number_format($row->total_harga + $row->biaya_ongkir, 0, ',', '.') }}</td>
+                                    <td>
+                                        Rp. {{ number_format($row->total_harga + $row->biaya_ongkir, 0, ',', '.') }}
+                                    </td>
+
                                     <td>
                                         @if ($row->status == 'Paid')
                                             <span class="badge badge-primary">Proses</span>
                                         @else
-                                            <span class="badge badge-warning" style="color: white;">{{ $row->status }}</span>
+                                            <span class="badge badge-warning" style="color: white;">
+                                                {{ $row->status }}
+                                            </span>
                                         @endif
                                     </td>
+
                                     <td>{{ $row->customer->email }}</td>
+
                                     <td>
                                         <a href="{{ route('pesanan.detail', $row->id) }}" title="Detail Order">
                                             <button type="button" class="badge badge-primary">
                                                 <i class="far fa-eye"></i> Detail
                                             </button>
                                         </a>
+
                                         <a href="{{ route('pesanan.invoice', $row->id) }}" title="Cetak Invoice"
                                             target="_blank">
+
                                             <button type="button" class="badge badge-secondary">
                                                 <i class="fas fa-print"></i> Cetak
                                             </button>

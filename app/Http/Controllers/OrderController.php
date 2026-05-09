@@ -24,8 +24,14 @@ class OrderController extends Controller
         $produk   = Produk::findOrFail($id);
 
         $order = Order::firstOrCreate(
-            ['customer_id' => $customer->id, 'status' => 'pending'],
-            ['total_harga' => 0]
+            [
+        'customer_id' => $customer->id,
+        'status' => 'pending'
+    ],
+            [
+        'user_id' => Auth::id(),
+        'total_harga' => 0
+    ]
         );
 
         $orderItem = OrderItem::firstOrCreate(
@@ -47,8 +53,8 @@ class OrderController extends Controller
     public function viewCart()
     {
         $customer = Customer::where('user_id', Auth::id())->first();
-        $order    = Order::where('customer_id', $customer->id)
-            ->whereIn('status', ['pending', 'paid'])
+        $order = Order::where('customer_id', $customer->id)
+            ->where('status', 'pending')
             ->first();
 
         if ($order) {
@@ -88,29 +94,36 @@ class OrderController extends Controller
 
     public function removeFromCart(Request $request, int $id)
     {
-        $customer  = Customer::where('user_id', Auth::id())->first();
-        $order     = Order::where('customer_id', $customer->id)
+        $customer = Customer::where('user_id', Auth::id())->first();
+
+        $order = Order::where('customer_id', $customer->id)
             ->where('status', 'pending')
             ->first();
 
-        if ($order) {
-            $orderItem = OrderItem::where('order_id', $order->id)
-                ->where('produk_id', $id)
-                ->first();
-
-            if ($orderItem) {
-                $order->total_harga -= $orderItem->harga * $orderItem->quantity;
-                $orderItem->delete();
-
-                if ($order->total_harga <= 0) {
-                    $order->delete();
-                } else {
-                    $order->save();
-                }
-            }
+        if (!$order) {
+            return redirect()->back();
         }
 
-        return redirect()->route('order.cart')->with('success', 'Produk berhasil dihapus dari keranjang');
+        $orderItem = OrderItem::where('order_id', $order->id)
+            ->where('produk_id', $id)
+            ->first();
+
+        if (!$orderItem) {
+            return redirect()->back();
+        }
+
+        $order->total_harga -= ($orderItem->harga * $orderItem->quantity);
+
+        $orderItem->delete();
+
+        if ($order->orderItems()->count() == 0) {
+            $order->delete();
+        } else {
+            $order->save();
+        }
+
+        return redirect()->route('order.cart')
+            ->with('success', 'Produk berhasil dihapus dari keranjang');
     }
 
     // ================================
@@ -120,9 +133,11 @@ class OrderController extends Controller
     public function selectShipping()
     {
         $customer = Customer::where('user_id', Auth::id())->first();
-        $order    = Order::where('customer_id', $customer->id)
+
+        $order = Order::where('customer_id', $customer->id)
             ->where('status', 'pending')
             ->first();
+
 
         if (!$order || $order->orderItems->count() == 0) {
             return redirect()->route('order.cart')->with('error', 'Keranjang belanja kosong.');
@@ -180,11 +195,14 @@ class OrderController extends Controller
 
         $grossAmount = $totalHarga + $order->biaya_ongkir;
 
+
         Config::$serverKey    = config('midtrans.server_key');
-        Config::$clientKey = config('midtrans.client_key');
+        Config::$clientKey    = config('midtrans.client_key');
         Config::$isProduction = config('midtrans.is_production');
-        Config::$isSanitized  = true;
-        Config::$is3ds        = true;
+        Config::$isSanitized  = config('midtrans.is_sanitized');
+        Config::$is3ds        = config('midtrans.is_3ds');
+
+
 
         $params = [
             'transaction_details' => [
@@ -196,7 +214,13 @@ class OrderController extends Controller
                 'email'      => $customer->email,
                 'phone'      => $customer->hp,
             ],
+            'enabled_payments' => [
+                'bca_va', 'bni_va', 'bri_va', 'permata_va',
+                'gopay', 'qris', 'shopeepay',
+                'indomaret', 'alfamart',
+            ],
         ];
+
 
         $snapToken = Snap::getSnapToken($params);
 
@@ -214,9 +238,18 @@ class OrderController extends Controller
             $order   = Order::find($orderId);
 
             if ($order) {
-                $order->update(['status' => 'Paid']);
+                $transactionStatus = $request->transaction_status;
+                $fraudStatus       = $request->fraud_status;
+
+                if (($transactionStatus == 'capture' && $fraudStatus == 'accept') || $transactionStatus == 'settlement') {
+                    $order->update(['status' => 'Paid']);
+                } elseif (in_array($transactionStatus, ['cancel', 'deny', 'expire'])) {
+                    $order->update(['status' => 'pending']);
+                }
             }
         }
+
+        return response()->json(['status' => 'ok']);
     }
 
     public function complete()
@@ -267,7 +300,8 @@ class OrderController extends Controller
 
     public function statusProses()
     {
-        $order = Order::whereIn('status', ['Paid', 'Kirim'])
+        $order = Order::with('customer')
+            ->whereIn('status', ['Paid', 'Kirim'])
             ->orderBy('id', 'desc')
             ->get();
 
@@ -280,7 +314,8 @@ class OrderController extends Controller
 
     public function statusSelesai()
     {
-        $order = Order::where('status', 'Selesai')
+        $order = Order::with('customer')
+            ->where('status', 'Selesai')
             ->orderBy('id', 'desc')
             ->get();
 
