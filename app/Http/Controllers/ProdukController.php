@@ -56,7 +56,7 @@ class ProdukController extends Controller
             'stok.numeric' => 'Stok harus berupa angka.',
         ]);
 
-            
+        $validatedData['user_id'] = Auth::id();            
         $validatedData['status'] = 0;
 
         if ($request->file('foto')) {
