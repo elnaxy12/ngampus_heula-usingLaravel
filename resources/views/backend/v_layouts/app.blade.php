@@ -138,6 +138,11 @@
                                 href="{{ route('backend.customer.index') }}" aria-expanded="false"><i
                                     class="mdi mdi-account-multiple"></i><span class="hide-menu">Customer</span></a>
                         </li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="{{ route('pesanan.proses') }}" aria-expanded="false"><i
+                                    class="mdi mdi-truck"></i>
+                                <span class="hide-menu">Pesanan</span></a>
+                        </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
                                 aria-expanded="false">

@@ -11,16 +11,15 @@
 
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
-            font-size: 13px;
+            font-size: 12px;
             color: #333;
-            background: #f5f5f5;
+            background: #fff;
         }
 
         .page {
-            max-width: 720px;
-            margin: 40px auto;
-            background: #fff;
-            padding: 48px;
+            width: 100%;
+            margin: 0;
+            padding: 20px;
         }
 
         .header {
