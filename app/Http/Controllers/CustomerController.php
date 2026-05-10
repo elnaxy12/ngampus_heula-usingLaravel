@@ -15,15 +15,17 @@ class CustomerController extends Controller
     // Redirect ke Google
     public function redirect()
     {
-
-        return Socialite::driver('google')->with(['prompt' => 'select_account'])->redirect();
+        /** @var \Laravel\Socialite\Two\GoogleProvider $driver */
+        $driver = Socialite::driver('google');
+        return $driver->with(['prompt' => 'select_account'])->redirect();
     }
     // Callback dari Google
     public function callback()
     {
         try {
-
-            $socialUser = Socialite::driver('google')->stateless()->user();
+            /** @var \Laravel\Socialite\Two\GoogleProvider $driver */
+            $driver = Socialite::driver('google');
+            $socialUser = $driver->stateless()->user();
 
             // Cek apakah email sudah terdaftar
             $registeredUser = User::where('email', $socialUser->email)->first();
@@ -80,7 +82,7 @@ class CustomerController extends Controller
         ]);
     }
 
-    public function akun($id)
+    public function akun(int $id)
     {
         $loggedInCustomerId = Auth::user()->id;
 
@@ -98,7 +100,7 @@ class CustomerController extends Controller
         ]);
     }
 
-    public function updateAkun(Request $request, $id)
+    public function updateAkun(Request $request, int $id)
     {
         $customer = Customer::where('user_id', $id)->firstOrFail();
 

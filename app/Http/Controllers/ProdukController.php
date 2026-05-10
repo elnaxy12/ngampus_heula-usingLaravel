@@ -7,6 +7,7 @@ use App\Models\Produk;
 use App\Models\Kategori;
 use App\Models\FotoProduk;
 use App\Helpers\ImageHelper;
+use Illuminate\Support\Facades\Auth;
 
 class ProdukController extends Controller
 {
@@ -55,7 +56,7 @@ class ProdukController extends Controller
             'stok.numeric' => 'Stok harus berupa angka.',
         ]);
 
-        $validatedData['user_id'] = auth()->id();
+            
         $validatedData['status'] = 0;
 
         if ($request->file('foto')) {
@@ -90,7 +91,7 @@ class ProdukController extends Controller
     /**
      * Display the kategori product.
      */
-    public function produkKategori($id)
+    public function produkKategori(int $id)
     {
         $kategori = Kategori::orderBy('nama_kategori', 'desc')->get();
         $produk = Produk::where('kategori_id', $id)->where('status', 1)-> orderBy('updated_at', 'desc')->paginate(6);
@@ -100,20 +101,20 @@ class ProdukController extends Controller
             'produk' => $produk,
         ]);
     }
-    
+
     /**
      * Display the all kategori product.
      */
-    public function produkAll() 
-    { 
-        $kategori = Kategori::orderBy('nama_kategori', 'desc')->get(); 
-        $produk = Produk::where('status', 1)->orderBy('updated_at', 'desc')->paginate(6); 
-        return view('v_produk.index', [ 
-            'judul' => 'Semua Produk', 
-            'kategori' => $kategori, 
-            'produk' => $produk, 
-        ]); 
-    } 
+    public function produkAll()
+    {
+        $kategori = Kategori::orderBy('nama_kategori', 'desc')->get();
+        $produk = Produk::where('status', 1)->orderBy('updated_at', 'desc')->paginate(6);
+        return view('v_produk.index', [
+            'judul' => 'Semua Produk',
+            'kategori' => $kategori,
+            'produk' => $produk,
+        ]);
+    }
 
     /**
      * Display the specified resource.
@@ -133,7 +134,7 @@ class ProdukController extends Controller
     /**
      * Display the detailed resource.
      */
-    public function detail($id)
+    public function detail(int $id)
     {
         $fotoProdukTambahan = FotoProduk::where('produk_id', $id)->get();
         $detail = Produk::findOrFail($id);
@@ -187,7 +188,8 @@ class ProdukController extends Controller
         ];
 
         $validatedData = $request->validate($rules, $messages);
-        $validatedData['user_id'] = auth()->id();
+
+        $validatedData['user_id'] = Auth::id();
 
         if ($request->file('foto')) {
             // hapus gambar lama
@@ -226,7 +228,7 @@ class ProdukController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
         $produk = Produk::findOrFail($id);
 
@@ -281,8 +283,10 @@ class ProdukController extends Controller
     }
 
     // Method untuk menghapus foto
-    public function destroyFoto($id)
+    public function destroyFoto(int $id)
     {
+
+        /** @var \App\Models\FotoProduk $foto */
         $foto = FotoProduk::findOrFail($id);
         $produkId = $foto->produk_id;
 
@@ -302,7 +306,7 @@ class ProdukController extends Controller
     /**
      * Helper method untuk menghapus file gambar dan thumbnail
      */
-    private function deleteImageFiles($filename)
+    private function deleteImageFiles(string $filename)
     {
         $directory = public_path('storage/img-produk/');
 
